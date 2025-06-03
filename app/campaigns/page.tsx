@@ -154,9 +154,11 @@ export default function CampaignsPage() {
                         <p className="text-gray-600 mb-6 max-w-md mx-auto">
                             {searchTerm ? "Try adjusting your search terms to find what you're looking for." : "Get started by creating your first campaign to reach your audience."}
                         </p>
-                        <button className="bg-gradient-to-r bg-emerald-500 hover:bg-emerald-600 cursor-pointer text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-sm hover:shadow-md">
-                            Create Your First Campaign
-                        </button>
+                        <Link href="campaigns/create">
+                            <button className="bg-gradient-to-r bg-emerald-500 hover:bg-emerald-600 cursor-pointer text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-sm hover:shadow-md">
+                                Create Your First Campaign
+                            </button>
+                        </Link>
                     </div>
                 )}
             </div>
