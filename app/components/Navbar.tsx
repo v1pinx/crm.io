@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, X, ChevronDown, ArrowRight, Github, MessageCircle, BarChart3, Target, Database, User, LogOut, LogIn } from 'lucide-react';
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,11 @@ const Navbar = () => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const { data: session, status } = useSession();
   const router = useRouter();
+
+ useEffect(() => {
+  console.log("Session:", session);
+}, [session]);
+
 
   const navigationItems = [
     {
