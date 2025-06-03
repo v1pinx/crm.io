@@ -2,6 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
 import { connectToMongoDB } from "@/lib/mongodb";
 import User from "@/models/Users";
+import mongoose from "mongoose";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -12,7 +13,10 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ profile }) {
-      await connectToMongoDB();
+      if (!mongoose.connections[0].readyState) {
+        await connectToMongoDB();
+      }
+
       const existingUser = await User.findOne({ email: profile?.email });
       if (!existingUser) {
         await User.create({
@@ -23,6 +27,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     async session({ session }) {
+      console.log("Session callback - user email:", session?.user?.email);
       const user = await User.findOne({ email: session?.user?.email });
       if (session.user && user) {
         (session.user as any)._id = user._id.toString();
